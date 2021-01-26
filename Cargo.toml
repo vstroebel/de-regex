@@ -1,0 +1,11 @@
+[package]
+name = "de-regexp"
+version = "0.1.0"
+authors = ["Volker Ströbel <volkerstroebel@mysurdity.de>"]
+edition = "2018"
+license = "MIT OR Apache-2.0"
+keywords = ["serde", "deserialization", "regex"]
+
+[dependencies]
+serde = { version = "1.0", features = ["derive"] }
+regex = "1.4"
