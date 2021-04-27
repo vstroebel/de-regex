@@ -157,7 +157,7 @@ pub fn from_str<'a, T>(input: &'a str, regex: &str) -> std::result::Result<T, Er
 /// ```
 pub fn from_str_regex<'a, T>(input: &'a str, regex: Regex) -> std::result::Result<T, Error> where T: Deserialize<'a> {
     let mut deserializer = de::Deserializer::new(input, regex);
-    Ok(T::deserialize(&mut deserializer)?)
+    T::deserialize(&mut deserializer)
 }
 
 #[cfg(test)]
@@ -283,7 +283,7 @@ mod test {
     fn test_bool() {
         #[derive(Deserialize)]
         struct TestBool {
-            v: bool
+            v: bool,
         }
 
         let regex = r"^(?P<v>(?i)(true|false))$";
@@ -305,7 +305,7 @@ mod test {
     fn test_uint() {
         #[derive(Deserialize)]
         struct TestUInt {
-            v: u32
+            v: u32,
         }
 
         let regex = r"^(?P<v>\+?\d+)$";
@@ -319,7 +319,7 @@ mod test {
     fn test_int() {
         #[derive(Deserialize)]
         struct TestInt {
-            v: i32
+            v: i32,
         }
 
         let regex = r"^(?P<v>[-+]?\d+)$";
@@ -334,7 +334,7 @@ mod test {
     fn test_float() {
         #[derive(Deserialize)]
         struct TestFloat {
-            v: f32
+            v: f32,
         }
 
         let regex = r"^(?P<v>[-+]?\d+(\.\d*)?)$";
@@ -363,7 +363,7 @@ mod test {
 
         #[derive(Deserialize)]
         struct Test {
-            v: NewType
+            v: NewType,
         }
 
         let regex = r"^(?P<v>[-+]?\d+)$";
@@ -387,7 +387,7 @@ mod test {
 
         #[derive(Deserialize)]
         struct Test {
-            v: TestEnum
+            v: TestEnum,
         }
 
         let regex = r"^(?P<v>[-+]?\w+)$";

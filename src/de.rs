@@ -29,7 +29,7 @@ impl<'de, 'a> serde::Deserializer<'de> for &'a mut Deserializer<'de> {
     }
 
     fn deserialize_map<V>(self, visitor: V) -> Result<V::Value> where V: Visitor<'de> {
-        let caps = self.regex.captures(&self.input).ok_or_else(|| Error::NoMatch())?;
+        let caps = self.regex.captures(&self.input).ok_or_else(Error::NoMatch)?;
 
         let items = self.regex.capture_names().filter_map(|n| {
             n.map(|name| {
