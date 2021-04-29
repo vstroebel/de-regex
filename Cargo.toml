@@ -7,6 +7,8 @@ license = "MIT OR Apache-2.0"
 description = "Regular expression based deserialization for serde"
 categories = ["encoding"]
 keywords = ["serde", "deserialization", "regex"]
+readme = "README.md"
+repository = "https://github.com/vstroebel/de-regex"
 
 [dependencies]
 serde = { version = "1.0", features = ["derive"] }
