@@ -7,7 +7,7 @@ This crate contains a library that deserializes a string into a struct based on 
 ## Example: Parse image dimension into struct
 
 ```rust
-# fn main() -> Result<(), de_regexp::Error> {
+# fn main() -> Result<(), de_regex::Error> {
 use serde::Deserialize;
 
 #[derive(Deserialize)]
@@ -19,7 +19,7 @@ struct Dimension {
 let pattern = r"^(?P<width>\d+)x(?P<height>\d+)$";
 let input = "800x600";
 
-let dim: Dimension = de_regexp::from_str(input, pattern)?;
+let dim: Dimension = de_regex::from_str(input, pattern)?;
 
 assert_eq!(dim.width, 800);
 assert_eq!(dim.height, 600);
@@ -101,7 +101,7 @@ use regex::Regex;
 ///
 /// # Example
 /// ```rust
-/// # fn main() -> Result<(), de_regexp::Error> {
+/// # fn main() -> Result<(), de_regex::Error> {
 /// use serde::Deserialize;
 ///
 /// #[derive(Deserialize)]
@@ -113,7 +113,7 @@ use regex::Regex;
 /// let pattern = r"^(?P<width>\d+)x(?P<height>\d+)$";
 /// let input = "800x600";
 ///
-/// let dim: Dimension = de_regexp::from_str(input, pattern)?;
+/// let dim: Dimension = de_regex::from_str(input, pattern)?;
 ///
 /// assert_eq!(dim.width, 800);
 /// assert_eq!(dim.height, 600);
@@ -142,7 +142,7 @@ pub fn from_str<'a, T>(input: &'a str, regex: &str) -> std::result::Result<T, Er
 /// let pattern = Regex::new(r"^(?P<width>\d+)x(?P<height>\d+)$")?;
 /// let input = "800x600";
 ///
-/// let dim: Dimension = de_regexp::from_str_regex(input, pattern)?;
+/// let dim: Dimension = de_regex::from_str_regex(input, pattern)?;
 ///
 /// assert_eq!(dim.width, 800);
 /// assert_eq!(dim.height, 600);

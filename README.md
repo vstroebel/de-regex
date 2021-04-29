@@ -16,7 +16,7 @@ struct Dimensions {
 let pattern = r"^(?P<width>\d+)x(?P<height>\d+)$";
 let input = "800x600";
 
-let dim: Dimensions = de_regexp::from_str(input, pattern).unwrap();
+let dim: Dimensions = de_regex::from_str(input, pattern).unwrap();
 
 assert_eq!(dim.width, 800);
 assert_eq!(dim.height, 600);
