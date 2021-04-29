@@ -1,9 +1,8 @@
 /*!
 
-This crate contains a library that deserializes a string into a struct based on a regular expression.
+# De-Regex
 
-[regex](https://crates.io/crates/regex)
-[serde](https://serde.rs/)
+This crate contains a library that deserializes a string into a struct based on a regular expression and serde.
 
 ## Example: Parse image dimension into struct
 
@@ -27,15 +26,6 @@ assert_eq!(dim.height, 600);
 # Ok(())
 # }
 ```
-## Pattern syntax
-
-This documentation contains only a simple overview of the regular expression syntax.
-For a full documentation please see the documentation of the [regex](https://crates.io/crates/regex) crate.
-
-### Words of wisdom
-
-*If your regular expression looks like a behemoth no mere mortal will ever understand, please reconsider using this crate*
-
 ## Supported data types
 
 The following data types can be used as struct fields.
@@ -77,6 +67,10 @@ The following data types can be used as struct fields.
 - **Option<>**: All types above can be used as an optional value
 
 Other data types supported by `serde` might work but are not officially supported and tested.
+
+### Words of wisdom
+
+If your regular expression looks like a behemoth no mere mortal will ever understand, please reconsider using this crate
 */
 
 /*
