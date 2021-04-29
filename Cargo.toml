@@ -5,7 +5,7 @@ authors = ["Volker Ströbel <volkerstroebel@mysurdity.de>"]
 edition = "2018"
 license = "MIT OR Apache-2.0"
 description = "Regular expression based deserialization for serde"
-category = ["encoding"]
+categories = ["encoding"]
 keywords = ["serde", "deserialization", "regex"]
 
 [dependencies]
