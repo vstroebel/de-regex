@@ -1,5 +1,9 @@
 # De-Regex
 
+[![docs.rs badge](https://docs.rs/de-regex/badge.svg)](https://docs.rs/de-regex/)
+[![crates.io badge](https://img.shields.io/crates/v/de-regex.svg)](https://crates.io/crates/de-regex/)
+[![Rust](https://github.com/vstroebel/de-regex/actions/workflows/rust.yml/badge.svg)](https://github.com/vstroebel/de-regex/actions/workflows/rust.yml)
+
 This crate contains a library that deserializes a string into a struct based on a regular expression and serde.
 
 ## Example
