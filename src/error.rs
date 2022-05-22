@@ -23,7 +23,10 @@ pub enum Error {
 }
 
 impl serde::de::Error for Error {
-    fn custom<T>(msg: T) -> Self where T: Display {
+    fn custom<T>(msg: T) -> Self
+    where
+        T: Display,
+    {
         Self::Custom(msg.to_string())
     }
 }
@@ -36,7 +39,9 @@ impl Display for Error {
         match self {
             BadRegex(err) => err.fmt(f),
             NoMatch() => write!(f, "String doesn't match pattern"),
-            BadValue { name, value } => write!(f, "Unable to convert value for group {}: {}", name, value),
+            BadValue { name, value } => {
+                write!(f, "Unable to convert value for group {}: {}", name, value)
+            }
             Custom(err) => write!(f, "{}", err),
         }
     }
