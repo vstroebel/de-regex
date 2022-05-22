@@ -124,8 +124,8 @@ pub fn from_str<'input, T>(input: &'input str, regex: &str) -> std::result::Resu
 where
     T: Deserialize<'input>,
 {
-    let regex = Regex::new(regex).map_err(Error::BadRegex)?;
-    from_str_regex(input, regex)
+    let rex = Regex::new(regex).map_err(Error::BadRegex)?;
+    from_str_regex(input, rex)
 }
 
 /// Deserialize an input string into a struct.
