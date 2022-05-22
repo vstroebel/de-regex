@@ -13,7 +13,7 @@ pub struct Deserializer<'de> {
 }
 
 impl<'de> Deserializer<'de> {
-    pub fn new(input: &'de str, regex: Regex) -> Deserializer {
+    pub const fn new(input: &'de str, regex: Regex) -> Deserializer {
         Deserializer { input, regex }
     }
 }
