@@ -21,6 +21,7 @@ impl<'de> Deserializer<'de> {
 impl<'de> serde::Deserializer<'de> for &'_ mut Deserializer<'de> {
     type Error = Error;
 
+    #[inline]
     fn deserialize_any<V>(self, visitor: V) -> Result<V::Value>
     where
         V: Visitor<'de>,

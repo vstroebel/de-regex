@@ -24,6 +24,7 @@ pub enum Error {
 }
 
 impl serde::de::Error for Error {
+    #[inline]
     fn custom<T>(msg: T) -> Self
     where
         T: Display,
@@ -35,6 +36,7 @@ impl serde::de::Error for Error {
 impl std::error::Error for Error {}
 
 impl Display for Error {
+    #[inline]
     fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
         use Error::*;
         match *self {

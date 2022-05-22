@@ -120,6 +120,7 @@ use serde::Deserialize;
 /// # Ok(())
 /// # }
 /// ```
+#[inline]
 pub fn from_str<'input, T>(input: &'input str, regex: &str) -> std::result::Result<T, Error>
 where
     T: Deserialize<'input>,
@@ -152,6 +153,7 @@ where
 /// # Ok(())
 /// # }
 /// ```
+#[inline]
 pub fn from_str_regex<'input, T>(input: &'input str, regex: Regex) -> std::result::Result<T, Error>
 where
     T: Deserialize<'input>,
