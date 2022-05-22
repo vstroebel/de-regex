@@ -70,6 +70,7 @@ struct Value {
 }
 
 impl Value {
+    #[allow(clippy::map_err_ignore)]
     fn parse<T>(&self) -> Result<T>
     where
         T: FromStr,
