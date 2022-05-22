@@ -2,6 +2,7 @@ use std::fmt::{Display, Formatter};
 
 /// An error that occurred during deserialization.
 #[derive(Debug)]
+#[non_exhaustive]
 pub enum Error {
     /// An error occurred while parsing the regular expression
     BadRegex(regex::Error),
