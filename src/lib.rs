@@ -124,7 +124,7 @@ pub fn from_str<'a, T>(input: &'a str, regex: &str) -> std::result::Result<T, Er
 where
     T: Deserialize<'a>,
 {
-    let regex = Regex::new(&regex).map_err(Error::BadRegex)?;
+    let regex = Regex::new(regex).map_err(Error::BadRegex)?;
     from_str_regex(input, regex)
 }
 
