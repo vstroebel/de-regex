@@ -53,4 +53,4 @@ impl Display for Error {
 
 // Do not use this alias in public parts of the crate because
 // it would hide the direct link to the actual error type in rustdoc.
-pub(crate) type Result<T> = std::result::Result<T, Error>;
+pub type Result<T> = std::result::Result<T, Error>;

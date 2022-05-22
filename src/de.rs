@@ -7,7 +7,7 @@ use regex::Regex;
 
 use crate::error::*;
 
-pub(crate) struct Deserializer<'de> {
+pub struct Deserializer<'de> {
     input: &'de str,
     regex: Regex,
 }
