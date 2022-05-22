@@ -120,9 +120,9 @@ use serde::Deserialize;
 /// # Ok(())
 /// # }
 /// ```
-pub fn from_str<'a, T>(input: &'a str, regex: &str) -> std::result::Result<T, Error>
+pub fn from_str<'input, T>(input: &'input str, regex: &str) -> std::result::Result<T, Error>
 where
-    T: Deserialize<'a>,
+    T: Deserialize<'input>,
 {
     let regex = Regex::new(regex).map_err(Error::BadRegex)?;
     from_str_regex(input, regex)
@@ -152,9 +152,9 @@ where
 /// # Ok(())
 /// # }
 /// ```
-pub fn from_str_regex<'a, T>(input: &'a str, regex: Regex) -> std::result::Result<T, Error>
+pub fn from_str_regex<'input, T>(input: &'input str, regex: Regex) -> std::result::Result<T, Error>
 where
-    T: Deserialize<'a>,
+    T: Deserialize<'input>,
 {
     let mut deserializer = de::Deserializer::new(input, regex);
     T::deserialize(&mut deserializer)
