@@ -36,13 +36,16 @@ impl std::error::Error for Error {}
 impl Display for Error {
     fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
         use Error::*;
-        match self {
-            BadRegex(err) => err.fmt(f),
+        match *self {
+            BadRegex(ref err) => err.fmt(f),
             NoMatch() => write!(f, "String doesn't match pattern"),
-            BadValue { name, value } => {
+            BadValue {
+                ref name,
+                ref value,
+            } => {
                 write!(f, "Unable to convert value for group {}: {}", name, value)
             }
-            Custom(err) => write!(f, "{}", err),
+            Custom(ref err) => write!(f, "{}", err),
         }
     }
 }
