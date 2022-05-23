@@ -274,6 +274,24 @@ mod test {
     }
 
     #[test]
+    fn test_option_present() {
+        let regex = r"^(?P<foo>\d*)(?:,(?P<bar>-?\d*))?$";
+        let input = "1,-2";
+        let output: Test3 = from_str(input, regex).unwrap();
+
+        assert_eq!(output, Test3 { foo: Some(1), bar: Some(-2) });
+    }
+
+    #[test]
+    fn test_option_missing() {
+        let regex = r"^(?P<foo>\d*)(?:,(?P<bar>-?\d*))?$";
+        let input = "1";
+        let output: Test3 = from_str(input, regex).unwrap();
+
+        assert_eq!(output, Test3 { foo: Some(1), bar: None });
+    }
+
+    #[test]
     fn test_bool() {
         #[derive(Deserialize)]
         struct TestBool {

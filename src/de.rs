@@ -32,10 +32,9 @@ impl<'de, 'a> serde::Deserializer<'de> for &'a mut Deserializer<'de> {
         let caps = self.regex.captures(&self.input).ok_or_else(Error::NoMatch)?;
 
         let items = self.regex.capture_names().filter_map(|n| {
-            n.map(|name| {
-                let value = &caps[name];
-                (name.to_owned(), Value { name: name.to_owned(), value: value.to_owned() })
-            })
+            n.and_then(|name| caps.name(name).map(|value| {
+                (name.to_owned(), Value { name: name.to_owned(), value: value.as_str().to_owned() })
+            }))
         });
 
         let ms = MapDeserializer::new(items);
