@@ -89,13 +89,13 @@ If your regular expression looks like a behemoth no mere mortal will ever unders
  *
  */
 
-mod error;
 mod de;
+mod error;
 
 pub use error::Error;
 
-use serde::Deserialize;
 use regex::Regex;
+use serde::Deserialize;
 
 /// Deserialize an input string into a struct.
 ///
@@ -120,9 +120,13 @@ use regex::Regex;
 /// # Ok(())
 /// # }
 /// ```
-pub fn from_str<'a, T>(input: &'a str, regex: &str) -> std::result::Result<T, Error> where T: Deserialize<'a> {
-    let regex = Regex::new(&regex).map_err(Error::BadRegex)?;
-    from_str_regex(input, regex)
+#[inline]
+pub fn from_str<'input, T>(input: &'input str, regex: &str) -> std::result::Result<T, Error>
+where
+    T: Deserialize<'input>,
+{
+    let rex = Regex::new(regex).map_err(Error::BadRegex)?;
+    from_str_regex(input, rex)
 }
 
 /// Deserialize an input string into a struct.
@@ -149,15 +153,19 @@ pub fn from_str<'a, T>(input: &'a str, regex: &str) -> std::result::Result<T, Er
 /// # Ok(())
 /// # }
 /// ```
-pub fn from_str_regex<'a, T>(input: &'a str, regex: Regex) -> std::result::Result<T, Error> where T: Deserialize<'a> {
+#[inline]
+pub fn from_str_regex<'input, T>(input: &'input str, regex: Regex) -> std::result::Result<T, Error>
+where
+    T: Deserialize<'input>,
+{
     let mut deserializer = de::Deserializer::new(input, regex);
     T::deserialize(&mut deserializer)
 }
 
 #[cfg(test)]
 mod test {
-    use super::*;
     use super::error::Result;
+    use super::*;
 
     #[derive(Deserialize, PartialEq, Debug)]
     struct Test {
@@ -233,20 +241,23 @@ mod test {
         let input = "true,1,2,3,4,-1,-2,-3,-4,1.0,-1.0,foobar";
         let output: Test2 = from_str(input, TEST2_PATTERN).unwrap();
 
-        assert_eq!(output, Test2 {
-            f_bool: true,
-            f_u8: 1,
-            f_u16: 2,
-            f_u32: 3,
-            f_u64: 4,
-            f_i8: -1,
-            f_i16: -2,
-            f_i32: -3,
-            f_i64: -4,
-            f_f32: 1.0,
-            f_f64: -1.0,
-            f_str: "foobar".to_owned(),
-        });
+        assert_eq!(
+            output,
+            Test2 {
+                f_bool: true,
+                f_u8: 1,
+                f_u16: 2,
+                f_u32: 3,
+                f_u64: 4,
+                f_i8: -1,
+                f_i16: -2,
+                f_i32: -3,
+                f_i64: -4,
+                f_f32: 1.0,
+                f_f64: -1.0,
+                f_str: "foobar".to_owned(),
+            }
+        );
     }
 
     #[derive(Deserialize, PartialEq, Debug)]
@@ -261,7 +272,13 @@ mod test {
         let input = "1,-2";
         let output: Test3 = from_str(input, regex).unwrap();
 
-        assert_eq!(output, Test3 { foo: Some(1), bar: Some(-2) });
+        assert_eq!(
+            output,
+            Test3 {
+                foo: Some(1),
+                bar: Some(-2)
+            }
+        );
     }
 
     #[test]
@@ -270,7 +287,13 @@ mod test {
         let input = ",";
         let output: Test3 = from_str(input, regex).unwrap();
 
-        assert_eq!(output, Test3 { foo: None, bar: None });
+        assert_eq!(
+            output,
+            Test3 {
+                foo: None,
+                bar: None
+            }
+        );
     }
 
     #[test]
@@ -279,7 +302,13 @@ mod test {
         let input = "1,-2";
         let output: Test3 = from_str(input, regex).unwrap();
 
-        assert_eq!(output, Test3 { foo: Some(1), bar: Some(-2) });
+        assert_eq!(
+            output,
+            Test3 {
+                foo: Some(1),
+                bar: Some(-2)
+            }
+        );
     }
 
     #[test]
@@ -288,7 +317,13 @@ mod test {
         let input = "1";
         let output: Test3 = from_str(input, regex).unwrap();
 
-        assert_eq!(output, Test3 { foo: Some(1), bar: None });
+        assert_eq!(
+            output,
+            Test3 {
+                foo: Some(1),
+                bar: None
+            }
+        );
     }
 
     #[test]
@@ -365,7 +400,11 @@ mod test {
         let input = "aaa1,-2";
         let output: Result<Test> = from_str(input, regex);
 
-        assert!(matches!(output, Err(Error::BadValue{..})), "Expected Error::BadValue got {:?}", output);
+        assert!(
+            matches!(output, Err(Error::BadValue { .. })),
+            "Expected Error::BadValue got {:?}",
+            output
+        );
     }
 
     #[test]

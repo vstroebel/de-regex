@@ -2,6 +2,7 @@ use std::fmt::{Display, Formatter};
 
 /// An error that occurred during deserialization.
 #[derive(Debug)]
+#[non_exhaustive]
 pub enum Error {
     /// An error occurred while parsing the regular expression
     BadRegex(regex::Error),
@@ -23,7 +24,11 @@ pub enum Error {
 }
 
 impl serde::de::Error for Error {
-    fn custom<T>(msg: T) -> Self where T: Display {
+    #[inline]
+    fn custom<T>(msg: T) -> Self
+    where
+        T: Display,
+    {
         Self::Custom(msg.to_string())
     }
 }
@@ -31,17 +36,23 @@ impl serde::de::Error for Error {
 impl std::error::Error for Error {}
 
 impl Display for Error {
+    #[inline]
     fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
         use Error::*;
-        match self {
-            BadRegex(err) => err.fmt(f),
+        match *self {
+            BadRegex(ref err) => err.fmt(f),
             NoMatch() => write!(f, "String doesn't match pattern"),
-            BadValue { name, value } => write!(f, "Unable to convert value for group {}: {}", name, value),
-            Custom(err) => write!(f, "{}", err),
+            BadValue {
+                ref name,
+                ref value,
+            } => {
+                write!(f, "Unable to convert value for group {}: {}", name, value)
+            }
+            Custom(ref err) => write!(f, "{}", err),
         }
     }
 }
 
 // Do not use this alias in public parts of the crate because
 // it would hide the direct link to the actual error type in rustdoc.
-pub(crate) type Result<T> = std::result::Result<T, Error>;
+pub type Result<T> = std::result::Result<T, Error>;
